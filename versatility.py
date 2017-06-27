@@ -43,6 +43,7 @@ import bct
 import networkx
 import matplotlib.pyplot as plt
 import numpy
+import scipy.stats
 
 # ▌ ▌            ▐  ▗▜ ▗▐             ▐     ▗       
 # ▚▗▘▞▀▖▙▀▖▞▀▘▝▀▖▜▀ ▄▐ ▄▜▀ ▌ ▌ ▛▚▀▖▞▀▖▜▀ ▙▀▖▄ ▞▀▖▞▀▘
@@ -139,19 +140,26 @@ def find_nodal_mean_versatility(g, alg, algname="", processors=1, argname="gamma
 # taking the average, it will plot them.  This returns a list of the
 # versatility values.
 _argvalsc = numpy.asarray(list(range(0, 40)))/10+.1
-def find_optimal_gamma_curve(G, alg, argname="gamma", argvals=_argvalsc, it=100, **kwargs):
+def find_optimal_gamma_curve(G, alg, algarg="gamma", argvals=_argvalsc, it=100, show=True, **kwargs):
+    import scipy.stats
+    import sys
     gs = argvals
     vs = []
+    sems = []
     for g in gs:
-        v = find_nodal_versatility(G, alg=alg, algargs={argname : g}, it=it, **kwargs)
+        v = find_nodal_versatility(G, alg=alg, algargs={algarg : g}, it=it, **kwargs)
         vs.append(numpy.mean(list(v.values())))
-        print(g)
-    plt.plot(gs, vs)
-    plt.title("Versatility across different values of %s" % argname)
-    plt.xlabel(argname)
-    plt.ylabel("Versatility")
-    plt.show()
-    return vs
+        sems.append(scipy.stats.sem(list(v.values())))
+        print(g, end=" ")
+        sys.stdout.flush()
+    print("\n")
+    if show == True:
+        plt.errorbar(gs, vs, yerr=sems)
+        plt.title("Versatility across different values of %s" % algarg)
+        plt.xlabel(algarg)
+        plt.ylabel("Versatility")
+        plt.show()
+    return (gs,vs,sems)
 
 
 # ▞▀▖                                  ▐  ▗          
