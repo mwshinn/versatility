@@ -25,7 +25,7 @@
 %     find_nodal_mean_versatility(G, @modularity_louvain_dir, .5:.05:2.0, 200)
 %
 %
-% Copyright 2016 Max Shinn <mws41@cam.ac.uk>
+% Copyright 2016 Max Shinn <maxwell.shinn@yale.edu>
 % Available under the GPLv3
 
 % Default arguments: `g` (N/A), `f` (@community_louvain), `a` (.4 to

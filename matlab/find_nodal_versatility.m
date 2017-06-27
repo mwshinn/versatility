@@ -35,7 +35,7 @@
 %     % Louvain versatility at gamma=1.0, run on 3 processors
 %     find_nodal_versatility(G, [], [], [], 3)
 %
-% Copyright 2016 Max Shinn <mws41@cam.ac.uk>
+% Copyright 2016 Max Shinn <maxwell.shinn@yale.edu>
 % Available under the GPLv3
 
 % Default arguments: `g` (N/A), `f` (@community_louvain), `a` (no
