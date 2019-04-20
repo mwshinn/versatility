@@ -7,6 +7,14 @@ structure.  It is written in Python3, and can only be guaranteed to
 work there.  (This MAY work in Python2 if you `import __future__` but
 this is untested... see code for details.)
 
+Install with:
+
+    pip3 install versatility
+
+Alternatively, clone the git repo and install with:
+
+    python3 setup.py install
+
 Dependencies:
 
 - Python3
@@ -46,5 +54,5 @@ If you use this code, please cite:
     communities. Scientific Reports 7: 4273.
     doi:10.1038/s41598-017-03394-5
 
-Copyright 2016-2017 Maxwell Shinn (maxwell.shinn@yale.edu)
+Copyright 2016-2019 Maxwell Shinn (maxwell.shinn@yale.edu)
 Available under the GNU GPLv3.
