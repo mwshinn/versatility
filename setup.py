@@ -9,7 +9,7 @@ with open("README.md", "r") as f:
 
 setup(
     name = 'versatility',
-    version = '1.0',
+    version = '1.0.1',
     description = 'Versatility - find how closely a node in a graph is associated with a community',
     long_description = long_desc,
     long_description_content_type='text/markdown',

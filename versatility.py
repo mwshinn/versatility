@@ -107,8 +107,8 @@ def find_nodal_versatility(g, alg, algname="", processors=1, algargs={}, it=200)
     assert type(C) == numpy.ndarray and type(Cs) == numpy.ndarray, "Not ndarrays" # Not numpy.matrix 
     versatility = numpy.sum(Cs, axis=0)/numpy.sum(C, axis=0)
     versatility[versatility<1e-10] = 0 # Prevent really small values
-    versatilitydict = {g.nodes()[i] : versatility[i] for i in range(0, len(g.nodes()))}
-    networkx.set_node_attributes(g, "%svers" % algname, versatilitydict)
+    versatilitydict = {list(g.nodes())[i] : versatility[i] for i in range(0, len(g.nodes()))}
+    networkx.set_node_attributes(g, name="%svers" % algname, values=versatilitydict)
     g.graph["%svers" % algname] = numpy.mean(versatility)
     return versatilitydict
 
@@ -135,8 +135,8 @@ def find_nodal_mean_versatility(g, alg, algname="", processors=1, argname="gamma
         print(v)
     means = { n : numpy.mean([gc.node[n][str(v)+"vers"] for v in argvals]) for n in gc.nodes() }
     allvals = { n : dict(zip(argvals, [gc.node[n][str(v)+"vers"] for v in argvals])) for n in gc.nodes() }
-    networkx.set_node_attributes(g, "%smeanvers" % algname, means)
-    networkx.set_node_attributes(g, "%smeanversvals" % algname, allvals)
+    networkx.set_node_attributes(g, name="%smeanvers" % algname, values=means)
+    networkx.set_node_attributes(g, name="%smeanversvals" % algname, values=allvals)
     g.graph["%smeanvers" % algname] = numpy.mean(list(means.values()))
     return means
 
@@ -261,5 +261,5 @@ def find_communities_louvain(g, gamma=1):
     #assert networkx.is_connected(g), "Graph not connected"
     lmodule = bct.community_louvain(numpy.asarray(networkx.to_numpy_matrix(g)), gamma=gamma)
     c = dict(zip(g.nodes(), list(map(int, lmodule[0]))))
-    networkx.set_node_attributes(g, 'louvain', c)
+    networkx.set_node_attributes(g, name='louvain', values=c)
     return c
